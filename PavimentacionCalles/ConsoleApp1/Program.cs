@@ -58,17 +58,18 @@ namespace ObrasPublicas
             
 
 
-            Console.WriteLine("\n Los totales de metros afectados por tipo de calle son");
-            int[] totalesCalleDaño = ObtieneCantidadCallePavimentadaPorDeterioro(callesObras, losDaños);
-
-            for (int i = 0; i < losDaños.Length; i++)
-                Console.WriteLine($"Daño: {losDaños[i]}, " +
-                    $"Total Metros Afectados: {totalesCalleDaño[i]}");
-
             
-
-
-
+            Console.WriteLine("\n Los totales de metros afectados por tipo de calle son");
+            float[] totalesCalleDaño = ObtieneCantidadCallePavimentadaPorDeterioro(callesObras, losDaños);
+            int[] totalAfectacionesPorDeterioro = TotalizaAfectacionesPorDeterioro(callesObras, losDaños);
+            float[] longitudesPromedio = ObtieneLongitudPromedioTramosPorDeterioro(callesObras, losDaños);
+            for (int i = 0; i < losDaños.Length; i++)
+            {
+                Console.WriteLine($"\nDaño: {losDaños[i]}:\n" +
+                    $"Total Calles afectadas: {totalAfectacionesPorDeterioro[i]} . " +
+                    $"Total metros afectados: {totalesCalleDaño[i].ToString(".00")} mts. " +
+                    $"longitud promedio de los tramos afectados {longitudesPromedio[i].ToString("0.00")}\n");
+            }
 
 
 
@@ -92,53 +93,53 @@ namespace ObrasPublicas
             }
         }
 
-        
-        static int[] ObtieneCantidadCallePavimentadaPorDeterioro(calleObjeto[] lasCalles, string[] losDaños)
+
+        static float[] ObtieneCantidadCallePavimentadaPorDeterioro(calleObjeto[] lasCalles, string[] losDaños)
         {
             //los totalesPorDaño son como los totales por Medio
-            
-            int[] totalesPorDaño = new int[lasCalles.Length];
 
-            int totalMetrosAfectados = 0;
+            float[] totalesPorDaño = new float[losDaños.Length];
 
             for (int i = 0; i < losDaños.Length; i++)
             {
+                int totalMetrosAfectados = 0; // Reiniciar el contador en cada iteración del primer bucle
+
                 for (int j = 0; j < lasCalles.Length; j++)
                 {
                     if (lasCalles[j].TipoDano == losDaños[i])
                         totalMetrosAfectados += (int)(lasCalles[j].MetrosCalle * (lasCalles[j].MetrosAfectados / 100.0));
                 }
+
                 totalesPorDaño[i] = totalMetrosAfectados;
             }
 
             return totalesPorDaño;
-            
         }
 
-       /* static float[] ObtieneLongitudPromedioTramosPorDeterioro(calleObjeto[] lasCalles, string[] losPromedios)
+        static float[] ObtieneLongitudPromedioTramosPorDeterioro(calleObjeto[] lasCalles, string[] losDeterioros)
         {
-            //los totalesPorDaño son como los totales por Medio
+            float[] longitudesPromedio = new float[losDeterioros.Length];
+            int[] totalAfectaciones = TotalizaAfectacionesPorDeterioro(lasCalles, losDeterioros);
+            float[] TotalPavimentoPorDeterioro = ObtieneCantidadCallePavimentadaPorDeterioro(lasCalles, losDeterioros);
 
-            float[] totalesPorDaño = new float[lasCalles.Length];
+            for (int i = 0; i < losDeterioros.Length; i++)
+                longitudesPromedio[i] = TotalPavimentoPorDeterioro[i] / (totalAfectaciones[i] * 1.0f);
 
-            int totalMetrosAfectados = 0;
+            return longitudesPromedio;
+        }
 
-            for (int i = 0; i < losPromedios.Length; i++)
-            {
-                for (int j = 0; j < lasCalles.Length; j++)
-                {
-                    if (lasCalles[j].TipoDano == losPromedios[i])
-                        totalMetrosAfectados += (int)(lasCalles[j].MetrosCalle * (lasCalles[j].MetrosAfectados / 100.0));
-                }
-                for (int k = 0; k < losPromedios.Length; i++)
-                {
-                    if (totalesPorDaño[k] > 0)
-                    {
-                        int promedio = totalMetrosAfectados[i] / totalesPorDaño[i];
-                    }
 
-            return totalesPorDaño;
+        static int[] TotalizaAfectacionesPorDeterioro(calleObjeto[] lasCalles, string[] losDeterioros)
+        {
+            int[] totalAfectaciones = new int[losDeterioros.Length];
 
-        }*/
+            for (int i = 0; i < lasCalles.Length; i++)
+                for (int j = 0; j < losDeterioros.Length; j++)
+                    if (lasCalles[i].TipoDano == losDeterioros[j])
+                        totalAfectaciones[j]++;
+
+            return totalAfectaciones;
+
+        }
     }
 }

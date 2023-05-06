@@ -4,8 +4,8 @@
     {
         // Atributos
         private string tipoDano;
-        private int metrosCalle;
-        private int metrosAfectados;
+        private float metrosCalle;
+        private float metrosAfectados;
 
         //Constructor
         public calleObjeto()
@@ -22,13 +22,13 @@
             set { tipoDano = value; }
         }
 
-        public int MetrosCalle
+        public float MetrosCalle
         {
             get { return metrosCalle; }
             set { metrosCalle = value; }
         }
 
-        public int MetrosAfectados
+        public float MetrosAfectados
         {
             get { return metrosAfectados; }
             set { metrosAfectados = value; }
