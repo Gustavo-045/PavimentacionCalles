@@ -15,7 +15,6 @@ namespace PruebasUnitarias1
             calleObjeto[] metrosAfectadosPrueba =
             {
                 new calleObjeto() {MetrosCalle=100, MetrosAfectados=20, TipoDano ="hundimientos"},
-                new calleObjeto() {MetrosCalle=100, MetrosAfectados=20, TipoDano ="hundimientos"},
             };
 
             float[] longitudPromedioHundimiento = Program.ObtieneLongitudPromedioTramosPorDeterioro(metrosAfectadosPrueba, dañosPrueba);
@@ -28,7 +27,7 @@ namespace PruebasUnitarias1
         }
 
         [TestMethod]
-        public void ValidarQueTotalAfectacionesPorHundimientosEs5()
+        public void ValidarQueTotalAfectacionesPorHundimientosEs6()
         {
             string[] dañosPrueba = { "hundimientos", "agrietamientos", "ondulaciones" };
 
@@ -39,10 +38,11 @@ namespace PruebasUnitarias1
                 new calleObjeto() {TipoDano = "hundimientos"},
                 new calleObjeto() {TipoDano = "hundimientos"},
                 new calleObjeto() {TipoDano = "hundimientos"},
+                new calleObjeto() {TipoDano = "hundimientos"},
 
             };
             int[] totalAfectacionesHundimiento = Program.TotalizaAfectacionesPorDeterioro(calles, dañosPrueba);
-            int cantidadEsperada = 5;
+            int cantidadEsperada = 6;
             int cantidadObtenida = totalAfectacionesHundimiento[0];
 
             Assert.AreEqual(cantidadEsperada, cantidadObtenida);
