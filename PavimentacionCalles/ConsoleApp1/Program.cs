@@ -10,7 +10,7 @@ using ObrasPublicas;
 
 namespace ObrasPublicas
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -116,26 +116,26 @@ namespace ObrasPublicas
             return totalesPorDaño;
         }
 
-        static float[] ObtieneLongitudPromedioTramosPorDeterioro(calleObjeto[] lasCalles, string[] losDeterioros)
+        public static float[] ObtieneLongitudPromedioTramosPorDeterioro(calleObjeto[] lasCalles, string[] losDaños)
         {
-            float[] longitudesPromedio = new float[losDeterioros.Length];
-            int[] totalAfectaciones = TotalizaAfectacionesPorDeterioro(lasCalles, losDeterioros);
-            float[] TotalPavimentoPorDeterioro = ObtieneCantidadCallePavimentadaPorDeterioro(lasCalles, losDeterioros);
+            float[] longitudesPromedio = new float[losDaños.Length];
+            int[] totalAfectaciones = TotalizaAfectacionesPorDeterioro(lasCalles, losDaños);
+            float[] TotalPavimentoPorDeterioro = ObtieneCantidadCallePavimentadaPorDeterioro(lasCalles, losDaños);
 
-            for (int i = 0; i < losDeterioros.Length; i++)
+            for (int i = 0; i < losDaños.Length; i++)
                 longitudesPromedio[i] = TotalPavimentoPorDeterioro[i] / (totalAfectaciones[i] * 1.0f);
 
             return longitudesPromedio;
         }
 
 
-        static int[] TotalizaAfectacionesPorDeterioro(calleObjeto[] lasCalles, string[] losDeterioros)
+        public static int[] TotalizaAfectacionesPorDeterioro(calleObjeto[] lasCalles, string[] losDaños)
         {
-            int[] totalAfectaciones = new int[losDeterioros.Length];
+            int[] totalAfectaciones = new int[losDaños.Length];
 
             for (int i = 0; i < lasCalles.Length; i++)
-                for (int j = 0; j < losDeterioros.Length; j++)
-                    if (lasCalles[i].TipoDano == losDeterioros[j])
+                for (int j = 0; j < losDaños.Length; j++)
+                    if (lasCalles[i].TipoDano == losDaños[j])
                         totalAfectaciones[j]++;
 
             return totalAfectaciones;
