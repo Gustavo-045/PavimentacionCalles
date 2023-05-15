@@ -8,17 +8,17 @@ namespace PruebasUnitarias1
     public class PruebasCalles
     {
         [TestMethod]
-        public void ValidarQuelongitudPromedioHundimientosEs20()
+        public void ValidarQuelongitudPromedioHundimientosEs30()
         {
             string[] dañosPrueba = { "hundimientos", "agrietamientos", "ondulaciones" };
 
             calleObjeto[] metrosAfectadosPrueba =
             {
-                new calleObjeto() {MetrosCalle=100, MetrosAfectados=20, TipoDano ="hundimientos"},
+                new calleObjeto() {MetrosCalle=100, MetrosAfectados=30, TipoDano ="hundimientos"},
             };
 
             float[] longitudPromedioHundimiento = Program.ObtieneLongitudPromedioTramosPorDeterioro(metrosAfectadosPrueba, dañosPrueba);
-            int totalEsperado = 20;
+            int totalEsperado = 30;
             float totalObtenido = longitudPromedioHundimiento[0];
 
             Assert.AreEqual(totalEsperado, totalObtenido);
